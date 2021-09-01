@@ -58,6 +58,13 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	//CREATE AND DISPLAY OUR WINDOW
 	HWND hWnd = CreateWindow(WindowClass, WindowTitle, WS_OVERLAPPEDWINDOW, 
 		CW_USEDEFAULT, 0, WindowWidth, WindowHeight, nullptr, nullptr, HInstance(), nullptr);	//hWnd is a representation of our window
+	
+	if (!hWnd)														//exception throwing
+	{
+		MessageBox(0, L"Failed to Create Window.", 0, 0);			//L before the string means wchar_t
+		return 0;
+	}
+	ShowWindow(hWnd, SW_SHOW);										//SW_SHOW makes window visible
 
 	//LISTEN FOR MESSAGE EVENTS. (The operating system communicates with your application window by passing messages to it. A message is simply a numeric code that designates a particular event. For example, if the user presses the left mouse button, the window receives a message that has the following message code.)
 
