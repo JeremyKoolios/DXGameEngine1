@@ -4,6 +4,10 @@
 #define HInstance() GetModuleHandle(NULL)							//returns current hInstance
 
 WCHAR WindowClass[MAX_NAME_STRING];
+WCHAR WindowTitle[MAX_NAME_STRING];
+
+INT WindowWidth;
+INT WindowHeight;
 
 																	//entry point
 																	//WinMain declaration is pretty much windows boilerplate code to get the program to work
@@ -22,6 +26,9 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	//INITIALIZE GLOBAL VARIABLES
 
 	wcscpy_s(WindowClass, TEXT("Window1Class"));					//Copy Wide String function works with character arrays
+	wcscpy_s(WindowClass, TEXT("First Window"));
+	WindowWidth = 1366;
+	WindowHeight = 768;
 
 	//CREATE WINDOW CLASS
 
@@ -49,6 +56,8 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	RegisterClassEx(&wcex);
 
 	//CREATE AND DISPLAY OUR WINDOW
+	HWND hWnd = CreateWindow(WindowClass, WindowTitle, WS_OVERLAPPEDWINDOW, 
+		CW_USEDEFAULT, 0, WindowWidth, WindowHeight, nullptr, nullptr, HInstance(), nullptr);	//hWnd is a representation of our window
 
 	//LISTEN FOR MESSAGE EVENTS. (The operating system communicates with your application window by passing messages to it. A message is simply a numeric code that designates a particular event. For example, if the user presses the left mouse button, the window receives a message that has the following message code.)
 
