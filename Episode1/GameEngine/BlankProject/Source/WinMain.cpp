@@ -1,10 +1,56 @@
 #include <windows.h>
 
-//entry point
-//hInstance is basically a representation of the entier project that is running
-//lpCmdLine allows us to put different commands into our program at runtime
-//nCmdShow commands to choose whether to show the window at the beginning or not
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpCmdLine, INT nCmdShow) 
+#define MAX_NAME_STRING 256											//#define is a macro the replaces all occurences with something
+#define HInstance() GetModuleHandle(NULL)							//returns current hInstance
+
+WCHAR WindowClass[MAX_NAME_STRING];
+
+																	//entry point
+																	//WinMain declaration is pretty much windows boilerplate code to get the program to work
+
+																	//hInstance is basically a representation of the entire project that is running
+																	//hInstance is something called a "handle to an instance" or "handle to a module." The operating system uses this value to identify the executable (EXE) when it is loaded in memory. The instance handle is needed for certain Windows functions—for example, to load icons or bitmaps.
+
+																	//hPrevInstance has no meaning.It was used in 16 - bit Windows, but is now always zero.
+
+																	//lpCmdLine allows us to put different commands into our program at runtime
+
+																	//nCmdShow commands to choose whether to show the window at the beginning or not
+																	//nCmdShow is a flag that says whether the main application window will be minimized, maximized, or shown normally.
+int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) 
 {
+	//INITIALIZE GLOBAL VARIABLES
+
+	wcscpy_s(WindowClass, TEXT("Window1Class"));					//Copy Wide String function works with character arrays
+
+	//CREATE WINDOW CLASS
+
+	WNDCLASSEX wcex;
+
+	wcex.cbSize = sizeof(WNDCLASSEX);								//set the size of class to itself. like initializing itself.
+	wcex.style = CS_HREDRAW | CS_VREDRAW;							//Horizontal and vertical redraw. These are always the same. These are flags (flags are represented as bitfields)
+	wcex.cbClsExtra = 0;											//These 2 variables allow us to allocate exta memory at runtime
+	wcex.cbWndExtra = 0;
+
+	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);					//sets cursor and background styles. Directx can take care of these.
+	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
+
+	wcex.hIcon = LoadIcon(0, IDI_APPLICATION);						//icon to appear on window. IDI_APPLICATION is basic default image for all applications
+	wcex.hIconSm = LoadIcon(0, IDI_APPLICATION);					//icon to appear on taskbar
+
+	wcex.lpszClassName = WindowClass;
+
+	wcex.lpszMenuName = nullptr;									//These menus refer to windows submenus and stuff
+
+	wcex.hInstance = HInstance();
+
+	wcex.lpfnWndProc = DefWindowProc;								//setting it to just basic windows process for now
+
+	RegisterClassEx(&wcex);
+
+	//CREATE AND DISPLAY OUR WINDOW
+
+	//LISTEN FOR MESSAGE EVENTS. (The operating system communicates with your application window by passing messages to it. A message is simply a numeric code that designates a particular event. For example, if the user presses the left mouse button, the window receives a message that has the following message code.)
+
 	return 0;
 }
