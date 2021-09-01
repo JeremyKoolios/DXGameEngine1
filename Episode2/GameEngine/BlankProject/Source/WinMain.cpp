@@ -6,6 +6,8 @@ WCHAR WindowTitle[MAX_NAME_STRING];
 INT WindowWidth;
 INT WindowHeight;
 
+HICON hIcon;
+
 LRESULT CALLBACK WindowProcess(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 	switch (message)
@@ -38,6 +40,7 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	wcscpy_s(WindowTitle, TEXT("First Window"));
 	WindowWidth = 1366;
 	WindowHeight = 768;
+	hIcon = LoadIcon(HInstance(), MAKEINTRESOURCE(IDI_MAINICON));
 
 	//CREATE WINDOW CLASS
 
@@ -51,8 +54,8 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);					//sets cursor and background styles. Directx can take care of these.
 	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
 
-	wcex.hIcon = LoadIcon(0, IDI_APPLICATION);						//icon to appear on window. IDI_APPLICATION is basic default image for all applications
-	wcex.hIconSm = LoadIcon(0, IDI_APPLICATION);					//icon to appear on taskbar
+	wcex.hIcon = hIcon;						//icon to appear on window. IDI_APPLICATION is basic default image for all applications
+	wcex.hIconSm = hIcon;					//icon to appear on taskbar
 
 	wcex.lpszClassName = WindowClass;
 
