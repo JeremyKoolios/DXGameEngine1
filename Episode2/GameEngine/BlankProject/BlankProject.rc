@@ -52,7 +52,19 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_MAINICON               ICON                    "Content\\Icons\\hotdoggy.ico"
+IDI_MAINICON            ICON                    "Content\\Icons\\hotdoggy.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_PERGAMENAME         "BlankProject"
+    IDS_WINDOWCLASS         "GameWindow"
+END
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////

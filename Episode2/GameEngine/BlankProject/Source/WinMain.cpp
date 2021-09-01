@@ -36,8 +36,9 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 {
 	//INITIALIZE GLOBAL VARIABLES
 
-	wcscpy_s(WindowClass, TEXT("Window1Class"));					//Copy Wide String function works with character arrays
-	wcscpy_s(WindowTitle, TEXT("First Window"));
+	LoadString(HInstance(), IDS_PERGAMENAME, WindowTitle, MAX_NAME_STRING);
+	LoadString(HInstance(), IDS_WINDOWCLASS, WindowClass, MAX_NAME_STRING);
+
 	WindowWidth = 1366;
 	WindowHeight = 768;
 	hIcon = LoadIcon(HInstance(), MAKEINTRESOURCE(IDI_MAINICON));
