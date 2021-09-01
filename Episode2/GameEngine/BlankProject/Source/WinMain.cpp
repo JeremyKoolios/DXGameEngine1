@@ -9,6 +9,18 @@ WCHAR WindowTitle[MAX_NAME_STRING];
 INT WindowWidth;
 INT WindowHeight;
 
+LRESULT CALLBACK WindowProcess(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
+{
+	switch (message)
+	{
+		case WM_DESTROY:											//if window closes, close program as well
+			PostQuitMessage(0);
+			break;
+	}
+
+	return DefWindowProc(hWnd, message, wparam, lparam);
+}
+
 																	//entry point
 																	//WinMain declaration is pretty much windows boilerplate code to get the program to work
 
@@ -51,7 +63,7 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 
 	wcex.hInstance = HInstance();
 
-	wcex.lpfnWndProc = DefWindowProc;								//setting it to just basic windows process for now
+	wcex.lpfnWndProc = WindowProcess;						//setting it to just basic windows process for now
 
 	RegisterClassEx(&wcex);
 
