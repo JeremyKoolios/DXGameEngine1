@@ -26,7 +26,7 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	//INITIALIZE GLOBAL VARIABLES
 
 	wcscpy_s(WindowClass, TEXT("Window1Class"));					//Copy Wide String function works with character arrays
-	wcscpy_s(WindowClass, TEXT("First Window"));
+	wcscpy_s(WindowTitle, TEXT("First Window"));
 	WindowWidth = 1366;
 	WindowHeight = 768;
 
@@ -67,6 +67,16 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	ShowWindow(hWnd, SW_SHOW);										//SW_SHOW makes window visible
 
 	//LISTEN FOR MESSAGE EVENTS. (The operating system communicates with your application window by passing messages to it. A message is simply a numeric code that designates a particular event. For example, if the user presses the left mouse button, the window receives a message that has the following message code.)
+	MSG msg = { 0 };
+	while (msg.message != WM_QUIT)									//prevents application from instantly turning off
+	{
+		//if there are window messages then process them
+		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))					//returns true if message is detected. non-blocking command. lets doesn't get in the way of game engine
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);									//send message to window
+		}
+	}
 
 	return 0;
 }
